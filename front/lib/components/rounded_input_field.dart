@@ -4,12 +4,10 @@ import 'package:front/constants.dart';
 
 class RoundedInputField extends StatelessWidget {
   final String hintText;
-  final IconData icon;
   final ValueChanged<String> onChanged;
   const RoundedInputField({
     Key? key,
     required this.hintText,
-    this.icon = Icons.person,
     required this.onChanged,
   }) : super(key: key);
 
@@ -18,9 +16,10 @@ class RoundedInputField extends StatelessWidget {
     return TextFieldContainer(
       child: TextField(
         onChanged: onChanged,
+        cursorColor: kPrimaryColor,
         decoration: InputDecoration(
           icon: Icon(
-            icon,
+            Icons.person,
             color: kPrimaryColor,
           ),
           hintText: hintText,

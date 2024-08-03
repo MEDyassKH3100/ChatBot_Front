@@ -39,7 +39,7 @@ class Body extends StatelessWidget {
             onChanged: (value) {},
           ),
           RoundedPasswordField(
-            onChanged: (value) {},
+            onChanged: (value) {}, hintText: '',
           ),
           RoundedButton(
             text: "LOGIN",
