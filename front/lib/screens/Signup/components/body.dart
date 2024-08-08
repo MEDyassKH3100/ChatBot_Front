@@ -8,15 +8,14 @@ import 'package:front/screens/Signup/components/background.dart';
 
 class Body extends StatelessWidget {
   const Body({
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Background(
       child: SingleChildScrollView(
-        //physics: NeverScrollableScrollPhysics(), // Disable scrolling
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -53,10 +52,12 @@ class Body extends StatelessWidget {
             RoundedPasswordField(
               hintText: "Mot de passe",
               onChanged: (value) {},
+              isPasswordField: true,
             ),
-            RoundedPasswordField(
+            RoundedInputField(
               hintText: "Confirmer Mot de passe",
               onChanged: (value) {},
+              
             ),
             RoundedButton(
               text: "SIGNUP",

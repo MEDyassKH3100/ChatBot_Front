@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:front/components/text_field_container.dart';
 import 'package:front/constants.dart';
 import 'dart:math';
 
 class RoundedPasswordField extends StatefulWidget {
-  final String hintText;
   final ValueChanged<String> onChanged;
+  final String hintText;
   const RoundedPasswordField({
     Key? key,
-    required this.hintText,
     required this.onChanged,
+    required this.hintText, required bool isPasswordField,
   }) : super(key: key);
 
   @override
@@ -18,7 +19,7 @@ class RoundedPasswordField extends StatefulWidget {
 
 class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
   bool _obscureText = true;
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
 
   void _toggleVisibility() {
     setState(() {
@@ -26,25 +27,32 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
     });
   }
 
+  void _copyToClipboard() {
+    Clipboard.setData(ClipboardData(text: _controller.text));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Password copied to clipboard")),
+    );
+  }
+
   String generatePassword() {
-    String upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    String lower = 'abcdefghijklmnopqrstuvwxyz';
-    String numbers = '1234567890';
-    String symbols = '!@#\$%^&*()<>,./';
+    const String upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const String lower = 'abcdefghijklmnopqrstuvwxyz';
+    const String numbers = '1234567890';
+    const String symbols = '!@#\$%^&*()<>,./';
     String password = '';
-    int passLength = 20;
-    String seed = upper + lower + numbers + symbols;
-    List<String> list = seed.split('').toList();
-    Random rand = Random();
+    const int passLength = 20;
+    final String seed = upper + lower + numbers + symbols;
+    final List<String> list = seed.split('').toList();
+    final Random rand = Random();
     for (int i = 0; i < passLength; i++) {
-      int index = rand.nextInt(list.length);
+      final int index = rand.nextInt(list.length);
       password += list[index];
     }
     return password;
   }
 
   void _generatePassword() {
-    String newPassword = generatePassword();
+    final String newPassword = generatePassword();
     _controller.text = newPassword;
     widget.onChanged(newPassword);
   }
@@ -52,35 +60,44 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: Row(
-        children: [
-          Expanded(
-            child: TextField(
-              controller: _controller,
-              obscureText: _obscureText,
-              onChanged: widget.onChanged,
-              decoration: InputDecoration(
-                hintText: widget.hintText,
+      child: TextField(
+        controller: _controller,
+        obscureText: _obscureText,
+        onChanged: widget.onChanged,
+        decoration: InputDecoration(
+          hintText: widget.hintText,
+          icon: Icon(
+            Icons.lock,
+            color: kPrimaryColor,
+          ),
+          suffixIcon: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
                 icon: Icon(
-                  Icons.lock,
+                  _obscureText ? Icons.visibility : Icons.visibility_off,
                   color: kPrimaryColor,
                 ),
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    _obscureText ? Icons.visibility : Icons.visibility_off,
-                    color: kPrimaryColor,
-                  ),
-                  onPressed: _toggleVisibility,
-                ),
-                border: InputBorder.none,
+                onPressed: _toggleVisibility,
               ),
-            ),
+              IconButton(
+                icon: Icon(
+                  Icons.copy,
+                  color: kPrimaryColor,
+                ),
+                onPressed: _copyToClipboard,
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.cached,
+                  color: kPrimaryColor,
+                ),
+                onPressed: _generatePassword,
+              ),
+            ],
           ),
-          IconButton(
-            icon: Icon(Icons.cached, color: kPrimaryColor),
-            onPressed: _generatePassword,
-          ),
-        ],
+          border: InputBorder.none,
+        ),
       ),
     );
   }

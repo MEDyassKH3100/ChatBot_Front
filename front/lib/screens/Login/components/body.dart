@@ -7,7 +7,6 @@ import 'package:front/components/rounded_password_field.dart';
 import 'package:front/constants.dart';
 import 'package:front/screens/Login/components/background.dart';
 
-
 class Body extends StatelessWidget {
   const Body({
     super.key,
@@ -39,7 +38,8 @@ class Body extends StatelessWidget {
             onChanged: (value) {},
           ),
           RoundedPasswordField(
-            onChanged: (value) {}, hintText: '',
+            onChanged: (value) {},
+            hintText: 'Password', isPasswordField: false,
           ),
           RoundedButton(
             text: "LOGIN",
