@@ -39,11 +39,17 @@ class Body extends StatelessWidget {
           ),
           RoundedPasswordField(
             onChanged: (value) {},
-            hintText: 'Password', isPasswordField: false,
+            hintText: 'Password',
+            isPasswordField: false,
           ),
           RoundedButton(
             text: "LOGIN",
-            press: () {},
+            press: () {
+              // Logique de connexion ici (vérifiez les informations de l'utilisateur)
+
+              // Si la connexion est réussie, redirigez vers la HomeScreen
+              Navigator.pushNamed(context, '/home');
+            },
           ),
           SizedBox(
             height: size.height * 0.03,
