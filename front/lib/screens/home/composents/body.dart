@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'background.dart';
+import 'package:front/screens/profile/profile_screen.dart'; // Import the ProfileScreen
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -16,14 +17,20 @@ class _BodyState extends State<Body> {
         style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
     Text('Messages',
         style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-    Text('Profile',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
   ];
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (index == 2) {
+      // Navigate to the Profile screen
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ProfileScreen()),
+      );
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   @override

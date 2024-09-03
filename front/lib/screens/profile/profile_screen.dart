@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:front/screens/home/composents/body.dart';
+import 'package:front/screens/profile/composents/body.dart';
 
-class HomeScreen extends StatelessWidget {
+class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          ' ESPRIT ',
+          ' PROFILE ',
           style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.purple,
@@ -84,6 +84,34 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: Body(),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Messages',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: 2, // Set to profile index
+        selectedItemColor: Colors.purple,
+        onTap: (index) {
+          // Navigate to the respective page based on the index
+          if (index == 0) {
+            Navigator.pushNamed(context, '/home');
+          } else if (index == 1) {
+            Navigator.pushNamed(context, '/messages');
+          } else if (index == 2) {
+            Navigator.pushNamed(context, '/profile');
+          }
+        },
+      ),
     );
   }
 }
