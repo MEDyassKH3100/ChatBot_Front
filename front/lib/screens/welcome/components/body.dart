@@ -7,6 +7,8 @@ import 'package:front/components/rounded_button.dart';
 import 'package:front/constants.dart';
 
 class Body extends StatelessWidget {
+  const Body({super.key});
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -15,7 +17,7 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               "WELCOME TO CHAT",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
@@ -40,7 +42,7 @@ class Body extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return SignupScreen();
+                      return const SignupScreen();
                     },
                   ),
                 );

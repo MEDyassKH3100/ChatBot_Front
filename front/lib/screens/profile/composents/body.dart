@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:front/screens/profile/composents/background.dart';
 
 class Body extends StatelessWidget {
+  const Body({super.key});
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -10,37 +12,37 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               "Your Profile",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
             ),
             SizedBox(height: size.height * 0.03),
-            ProfileTextField(
+            const ProfileTextField(
               labelText: "Nom",
               hintText: "Your Name",
               icon: Icons.person,
             ),
-            ProfileTextField(
+            const ProfileTextField(
               labelText: "Prénom",
               hintText: "Your Surname",
               icon: Icons.person_outline,
             ),
-            ProfileTextField(
+            const ProfileTextField(
               labelText: "CIN",
               hintText: "Your CIN",
               icon: Icons.badge,
             ),
-            ProfileTextField(
+            const ProfileTextField(
               labelText: "Identifiant",
               hintText: "Your ID",
               icon: Icons.credit_card,
             ),
-            ProfileTextField(
+            const ProfileTextField(
               labelText: "Email",
               hintText: "Your Email",
               icon: Icons.email,
             ),
-            ProfileTextField(
+            const ProfileTextField(
               labelText: "Mot de Passe",
               hintText: "Your Password",
               icon: Icons.lock,
@@ -51,6 +53,10 @@ class Body extends StatelessWidget {
               onPressed: () {
                 // Logic for saving the updated profile information
               },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.purple,
+                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+              ),
               child: Text(
                 "Save",
                 style: TextStyle(
@@ -58,10 +64,6 @@ class Body extends StatelessWidget {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.purple,
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
               ),
             ),
           ],
@@ -78,12 +80,12 @@ class ProfileTextField extends StatelessWidget {
   final bool isPassword;
 
   const ProfileTextField({
-    Key? key,
+    super.key,
     required this.labelText,
     required this.hintText,
     required this.icon,
     this.isPassword = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

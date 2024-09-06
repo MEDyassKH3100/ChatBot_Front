@@ -8,10 +8,10 @@ class RoundedPasswordField extends StatefulWidget {
   final ValueChanged<String> onChanged;
   final String hintText;
   const RoundedPasswordField({
-    Key? key,
+    super.key,
     required this.onChanged,
     required this.hintText, required bool isPasswordField,
-  }) : super(key: key);
+  });
 
   @override
   _RoundedPasswordFieldState createState() => _RoundedPasswordFieldState();
@@ -30,7 +30,7 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
   void _copyToClipboard() {
     Clipboard.setData(ClipboardData(text: _controller.text));
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Password copied to clipboard")),
+      const SnackBar(content: Text("Password copied to clipboard")),
     );
   }
 
@@ -41,7 +41,7 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
     const String symbols = '!@#\$%^&*()<>,./';
     String password = '';
     const int passLength = 20;
-    final String seed = upper + lower + numbers + symbols;
+    const String seed = upper + lower + numbers + symbols;
     final List<String> list = seed.split('').toList();
     final Random rand = Random();
     for (int i = 0; i < passLength; i++) {
@@ -66,7 +66,7 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
         onChanged: widget.onChanged,
         decoration: InputDecoration(
           hintText: widget.hintText,
-          icon: Icon(
+          icon: const Icon(
             Icons.lock,
             color: kPrimaryColor,
           ),
@@ -81,14 +81,14 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
                 onPressed: _toggleVisibility,
               ),
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.copy,
                   color: kPrimaryColor,
                 ),
                 onPressed: _copyToClipboard,
               ),
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.cached,
                   color: kPrimaryColor,
                 ),

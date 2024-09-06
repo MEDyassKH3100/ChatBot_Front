@@ -8,8 +8,8 @@ import 'package:front/screens/Signup/components/background.dart';
 
 class Body extends StatelessWidget {
   const Body({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               "SIGNUP",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
@@ -74,7 +74,7 @@ class Body extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(context, '/');
               },
-              child: Text("BACK TO HOME"),
+              child: const Text("BACK TO HOME"),
             ),
           ],
         ),

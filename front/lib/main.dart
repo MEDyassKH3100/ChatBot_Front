@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front/screens/Login/login_screen.dart';
 import 'package:front/screens/Signup/signup_screen.dart';
+import 'package:front/screens/chat/chat_screen.dart';
 import 'package:front/screens/home/home_screen.dart';
 import 'package:front/screens/profile/profile_screen.dart';
 import 'package:front/screens/welcome/welcome_screen.dart';
@@ -23,10 +24,11 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const WelcomeScreen(),
-        '/login': (context) => LoginScreen(),
-        '/signup': (context) => SignupScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/signup': (context) => const SignupScreen(),
         '/home': (context) => HomeScreen(),
         '/profile': (context) => ProfileScreen(),
+        '/ChatEsprit': (context) => ChatScreen(),
       },
     );
   }

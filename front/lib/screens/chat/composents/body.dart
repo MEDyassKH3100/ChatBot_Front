@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gemini_bot/flutter_gemini_bot.dart';
+import 'package:flutter_gemini_bot/models/chat_model.dart';
 import 'background.dart';
  // Import ChatScreen
 
@@ -12,14 +14,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Home Page',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-    Text('ChatEsprit',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-        Text('ChatEsprit',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-  ];
+ 
 
   void _onItemTapped(int index) {
     if( index== 0){
@@ -39,18 +34,23 @@ class _BodyState extends State<Body> {
       });
     }
   }
-
+  List<ChatModel> chatList = []; // Your list of ChatModel objects
+  String apiKey = 'AIzaSyDLYEYXcKak7fJO5_Eu8pCg95AsHJasCec';
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Background(
       child: Column(
         children: <Widget>[
-          Expanded(
-            child: Center(
-              child: _widgetOptions.elementAt(_selectedIndex),
-            ),
-          ),
+           Expanded(
+             child: FlutterGeminiChat(
+                     chatContext: 'you are a chat bot for a eng school named esprit in tunisia so you will help students and you can reply on english or on frensh',
+                     chatList: chatList,
+                     apiKey: apiKey,
+                   ),
+           ),
+     
+  
           BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(

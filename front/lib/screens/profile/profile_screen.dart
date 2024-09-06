@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:front/screens/profile/composents/body.dart';
 
 class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           ' PROFILE ',
           style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.purple,
         actions: <Widget>[
           PopupMenuButton<String>(
-            icon: Icon(
+            icon: const Icon(
               Icons.more_vert,
               color: Colors.white,
             ),
@@ -36,7 +38,7 @@ class ProfileScreen extends StatelessWidget {
             },
             itemBuilder: (BuildContext context) {
               return <PopupMenuEntry<String>>[
-                PopupMenuItem<String>(
+                const PopupMenuItem<String>(
                   value: 'Settings',
                   child: Row(
                     children: <Widget>[
@@ -46,7 +48,7 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                PopupMenuItem<String>(
+                const PopupMenuItem<String>(
                   value: 'Historique',
                   child: Row(
                     children: <Widget>[
@@ -57,7 +59,7 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                PopupMenuItem<String>(
+                const PopupMenuItem<String>(
                   value: 'Attestation',
                   child: Row(
                     children: <Widget>[
@@ -68,7 +70,7 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                PopupMenuItem<String>(
+                const PopupMenuItem<String>(
                   value: 'Log Out',
                   child: Row(
                     children: <Widget>[
@@ -92,7 +94,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.message),
-            label: 'Messages',
+            label: 'ChatEsprit',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -106,7 +108,8 @@ class ProfileScreen extends StatelessWidget {
           if (index == 0) {
             Navigator.pushNamed(context, '/home');
           } else if (index == 1) {
-            Navigator.pushNamed(context, '/messages');
+            Navigator.pushNamed(
+                context, '/ChatEsprit'); // Navigate to ChatScreen
           } else if (index == 2) {
             Navigator.pushNamed(context, '/profile');
           }
