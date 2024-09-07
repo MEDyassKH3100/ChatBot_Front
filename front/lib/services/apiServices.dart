@@ -3,7 +3,7 @@ import 'package:front/models/user.dart';
 
 class ApiService {
   final Dio _dio = Dio();
-  final String baseUrl = 'http://192.168.1.59:3000';
+  final String baseUrl = 'http://192.168.1.102:3000';
 
   // Fetch a user from the server
   Future<User?> getUser(String userId) async {
