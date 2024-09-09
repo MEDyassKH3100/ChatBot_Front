@@ -3,7 +3,7 @@ import 'package:front/models/user.dart';
 
 class ApiService {
   final Dio _dio = Dio();
-  final String baseUrl = 'http://192.168.1.102:3000';
+  final String baseUrl = 'http://192.168.1.59:3000';
 
   // Fetch a user from the server
   Future<User?> getUser(String userId) async {
@@ -82,6 +82,47 @@ Future<User?> login(String email, String password) async {
 }
 
 //register
+//register
+Future<bool> register(String email, String password, String nom, String prenom, int cin, String identifiant) async {
+  try {
+    Response response = await _dio.post(
+      '$baseUrl/user',
+      data: {
+        "email": email,
+        "mdp": password,
+        "nom": nom,
+        "prenom": prenom,
+        "cin": cin,
+        "identifiant": identifiant,
+      },
+    );
+    
+    if (response.statusCode == 200) {
+      print("Inscription réussie. Veuillez vérifier votre e-mail.");
+      return true; // Retourne vrai si l'inscription est réussie
+    } else {
+      print('Inscription échouée: ${response.statusCode}');
+      return false;
+    }
+  } catch (e) {
+    print('Erreur lors de l\'inscription: $e');
+    return false;
+  }
+}
+
+
+
+
+
+
+
+//verifyemail 
+
+
+
+
+
+
 
 
 }

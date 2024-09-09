@@ -5,11 +5,24 @@ import 'package:front/components/rounded_button.dart';
 import 'package:front/components/rounded_input_field.dart';
 import 'package:front/components/rounded_password_field.dart';
 import 'package:front/screens/Signup/components/background.dart';
+import 'package:front/services/apiServices.dart';
 
-class Body extends StatelessWidget {
-  const Body({
-    super.key,
-  });
+class Body extends StatefulWidget {
+  const Body({super.key});
+
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  TextEditingController nomController = TextEditingController();
+  TextEditingController prenomController = TextEditingController();
+  TextEditingController cinController = TextEditingController();
+  TextEditingController identifiantController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  ApiService apiService = ApiService();
 
   @override
   Widget build(BuildContext context) {
@@ -31,37 +44,74 @@ class Body extends StatelessWidget {
             SizedBox(height: size.height * 0.03),
             RoundedInputField(
               hintText: "Nom",
-              onChanged: (value) {},
+              onChanged: (value) {
+                setState(() {
+                  nomController.text = value;
+                });
+              },
             ),
             RoundedInputField(
               hintText: "Prénom",
-              onChanged: (value) {},
+              onChanged: (value) {
+                setState(() {
+                  prenomController.text = value;
+                });
+              },
             ),
             RoundedInputField(
               hintText: "CIN",
-              onChanged: (value) {},
+              onChanged: (value) {
+                setState(() {
+                  cinController.text = value;
+                });
+              },
             ),
             RoundedInputField(
               hintText: "Identifiant",
-              onChanged: (value) {},
+              onChanged: (value) {
+                setState(() {
+                  identifiantController.text = value;
+                });
+              },
             ),
             RoundedInputField(
               hintText: "Email",
-              onChanged: (value) {},
+              onChanged: (value) {
+                setState(() {
+                  emailController.text = value;
+                });
+              },
             ),
             RoundedPasswordField(
-              hintText: "Mot de passe",
-              onChanged: (value) {},
-              isPasswordField: true,
-            ),
-            RoundedInputField(
-              hintText: "Confirmer Mot de passe",
-              onChanged: (value) {},
-              
+              onChanged: (value) {
+                setState(() {
+                  passwordController.text = value;
+                });
+              },
+              hintText: 'Password',
+              isPasswordField: false,
             ),
             RoundedButton(
               text: "SIGNUP",
-              press: () {},
+              press: () async {
+                bool success = await apiService.register(
+                  emailController.text,
+                  passwordController.text,
+                  nomController.text,
+                  prenomController.text,
+                  int.parse(cinController.text),
+                  identifiantController.text,
+                );
+
+                if (success) {
+                  // Redirige vers l'écran de succès d'inscription
+                  Navigator.pushNamed(context, '/signupSuccess');
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Inscription échouée.')),
+                  );
+                }
+              },
             ),
             SizedBox(height: size.height * 0.03),
             AlreadyHaveAnAccountCheck(
