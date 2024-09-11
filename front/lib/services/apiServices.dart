@@ -3,7 +3,7 @@ import 'package:front/models/user.dart';
 
 class ApiService {
   final Dio _dio = Dio();
-  final String baseUrl = 'http://192.168.1.59:3000';
+  final String baseUrl = 'http://192.168.1.102:3000';
 
   // Fetch a user from the server
   Future<User?> getUser(String userId) async {
@@ -115,8 +115,35 @@ Future<bool> register(String email, String password, String nom, String prenom, 
 
 
 
+/*/ Forgot Password
+Future<void> forgotPassword(String email) async {
+  try {
+    Response response = await _dio.post('$baseUrl/user/forgotpassword', data: {
+      "email": email,
+    });
+    if (response.statusCode == 200) {
+      print("Email envoyé pour la réinitialisation du mot de passe");
+    }
+  } catch (e) {
+    print("Erreur lors de l'envoi de l'email de réinitialisation: $e");
+  }
+}
 
-//verifyemail 
+// Reset Password
+Future<void> resetPassword(String newPassword, String token) async {
+  try {
+    Response response = await _dio.post('$baseUrl/user/resetpassword/$token', data: {
+      "mdp": newPassword,
+    });
+    if (response.statusCode == 200) {
+      print("Mot de passe réinitialisé avec succès");
+    }
+  } catch (e) {
+    print("Erreur lors de la réinitialisation du mot de passe: $e");
+  }
+}*/
+
+
 
 
 

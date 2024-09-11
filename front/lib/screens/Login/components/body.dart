@@ -18,11 +18,10 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  TextEditingController emailController=TextEditingController();
-    TextEditingController passwordController=TextEditingController();
-    var apiService=ApiService();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  var apiService = ApiService();
 
-  
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -46,20 +45,17 @@ class _BodyState extends State<Body> {
               height: size.height * 0.03,
             ),
             RoundedInputField(
-              
               hintText: "Your Email",
               onChanged: (value) {
                 setState(() {
-                                  emailController.text=value;
-
+                  emailController.text = value;
                 });
-
               },
             ),
             RoundedPasswordField(
               onChanged: (value) {
                 setState(() {
-                  passwordController.text=value;
+                  passwordController.text = value;
                 });
               },
               hintText: 'Password',
@@ -68,15 +64,11 @@ class _BodyState extends State<Body> {
             RoundedButton(
               text: "LOGIN",
               press: () {
-                print(
-                  "____________________________________________________"
-                );
+                print("____________________________________________________");
                 print(emailController.text);
 
                 print(passwordController.text);
-                    print(
-                  "____________________________________________________"
-                );
+                print("____________________________________________________");
                 apiService.login(emailController.text, passwordController.text);
                 //Navigator.pushNamed(context, '/home');
               },
@@ -84,6 +76,16 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: size.height * 0.03,
             ),
+
+            RoundedButton(
+              text: "Mot de passe oublié ?",
+              color: kPrimaryLightColor,
+              textColor: Colors.black,
+              press: () {
+                Navigator.pushNamed(context, '/forgotpassword');
+              },
+            ),
+
             AlreadyHaveAnAccountCheck(
               press: () {
                 Navigator.pushNamed(context, '/signup');
