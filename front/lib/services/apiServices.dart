@@ -3,7 +3,7 @@ import 'package:front/models/user.dart';
 
 class ApiService {
   final Dio _dio = Dio();
-  final String baseUrl = 'http://192.168.1.102:3000';
+  final String baseUrl = 'http://192.168.1.59:3000';
 
   // Fetch a user from the server
   Future<User?> getUser(String userId) async {
@@ -43,7 +43,8 @@ class ApiService {
   Future<bool> updateUser(String userId, User user) async {
     try {
       Map<String, dynamic> userData = user.toJson();
-      Response response = await _dio.put('$baseUrl/user/$userId', data: userData);
+      Response response =
+          await _dio.put('$baseUrl/user/$userId', data: userData);
       if (response.statusCode == 200) {
         print('User updated successfully');
         return true;
@@ -56,100 +57,91 @@ class ApiService {
       return false;
     }
   }
+
 //login
-Future<User?> login(String email, String password) async {
-  try {
-    Response response = await _dio.post(
-      '$baseUrl/user/login',
-      data: {
-        "email": email,
-        "mdp": password,
-      },
-    );
-    
-    if (response.statusCode == 200) {
-      print("Login successful");
-      print(response.data);
-      return User.fromJson(response.data); // Assuming response contains user data
-    } else {
-      print('Failed to login: ${response.statusCode}');
+  Future<User?> login(String email, String password) async {
+    try {
+      Response response = await _dio.post(
+        '$baseUrl/user/login',
+        data: {
+          "email": email,
+          "mdp": password,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        print("Login successful");
+        print(response.data);
+        return User.fromJson(
+            response.data); // Assuming response contains user data
+      } else {
+        print('Failed to login: ${response.statusCode}');
+        return null;
+      }
+    } catch (e) {
+      print('Error occurred: $e');
       return null;
     }
-  } catch (e) {
-    print('Error occurred: $e');
-    return null;
   }
-}
+
 
 //register
-//register
-Future<bool> register(String email, String password, String nom, String prenom, int cin, String identifiant) async {
-  try {
-    Response response = await _dio.post(
-      '$baseUrl/user',
-      data: {
-        "email": email,
-        "mdp": password,
-        "nom": nom,
-        "prenom": prenom,
-        "cin": cin,
-        "identifiant": identifiant,
-      },
-    );
-    
-    if (response.statusCode == 200) {
-      print("Inscription réussie. Veuillez vérifier votre e-mail.");
-      return true; // Retourne vrai si l'inscription est réussie
-    } else {
-      print('Inscription échouée: ${response.statusCode}');
+  Future<bool> register(String email, String password, String nom,
+      String prenom, int cin, String identifiant) async {
+    try {
+      Response response = await _dio.post(
+        '$baseUrl/user',
+        data: {
+          "email": email,
+          "mdp": password,
+          "nom": nom,
+          "prenom": prenom,
+          "cin": cin,
+          "identifiant": identifiant,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        print("Inscription réussie. Veuillez vérifier votre e-mail.");
+        return true; // Retourne vrai si l'inscription est réussie
+      } else {
+        print('Inscription échouée: ${response.statusCode}');
+        return false;
+      }
+    } catch (e) {
+      print('Erreur lors de l\'inscription: $e');
       return false;
     }
-  } catch (e) {
-    print('Erreur lors de l\'inscription: $e');
-    return false;
   }
-}
 
-
-
-
-
-
-/*/ Forgot Password
-Future<void> forgotPassword(String email) async {
-  try {
-    Response response = await _dio.post('$baseUrl/user/forgotpassword', data: {
-      "email": email,
-    });
-    if (response.statusCode == 200) {
-      print("Email envoyé pour la réinitialisation du mot de passe");
+  /*
+ // Forgot Password
+  Future<void> forgotPassword(String email) async {
+    try {
+      Response response =
+          await _dio.post('$baseUrl/user/forgotpassword', data: {
+        "email": email,
+      });
+      if (response.statusCode == 200) {
+        print("Email envoyé pour la réinitialisation du mot de passe");
+      }
+    } catch (e) {
+      print("Erreur lors de l'envoi de l'email de réinitialisation: $e");
     }
-  } catch (e) {
-    print("Erreur lors de l'envoi de l'email de réinitialisation: $e");
   }
-}
 
-// Reset Password
-Future<void> resetPassword(String newPassword, String token) async {
-  try {
-    Response response = await _dio.post('$baseUrl/user/resetpassword/$token', data: {
-      "mdp": newPassword,
-    });
-    if (response.statusCode == 200) {
-      print("Mot de passe réinitialisé avec succès");
+  // Reset Password
+  Future<void> resetPassword(String newPassword, String token) async {
+    try {
+      Response response =
+          await _dio.post('$baseUrl/user/resetpassword/$token', data: {
+        "mdp": newPassword,
+      });
+      if (response.statusCode == 200) {
+        print("Mot de passe réinitialisé avec succès");
+      }
+    } catch (e) {
+      print("Erreur lors de la réinitialisation du mot de passe: $e");
     }
-  } catch (e) {
-    print("Erreur lors de la réinitialisation du mot de passe: $e");
-  }
-}*/
-
-
-
-
-
-
-
-
-
-
+  }*/
 }

@@ -63,16 +63,34 @@ class _BodyState extends State<Body> {
             ),
             RoundedButton(
               text: "LOGIN",
-              press: () {
+              press: () async {
                 print("____________________________________________________");
                 print(emailController.text);
-
                 print(passwordController.text);
                 print("____________________________________________________");
-                apiService.login(emailController.text, passwordController.text);
-                //Navigator.pushNamed(context, '/home');
+
+                // Appel à l'API de connexion et attente du résultat
+                var user = await apiService.login(
+                    emailController.text, passwordController.text);
+
+                // Si la connexion est réussie, navigation vers l'écran d'accueil
+                if (user != null) {
+                  print(
+                      "Connexion réussie, navigation vers l'écran d'accueil...");
+                  Navigator.pushNamed(context, '/home');
+                } else {
+                  print("Échec de la connexion");
+                  // Afficher un message d'erreur à l'utilisateur
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                          'Échec de la connexion. Veuillez vérifier votre email ou mot de passe.'),
+                    ),
+                  );
+                }
               },
             ),
+
             SizedBox(
               height: size.height * 0.03,
             ),
