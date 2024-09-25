@@ -1,8 +1,75 @@
 import 'package:flutter/material.dart';
 import 'package:front/screens/profile/composents/background.dart';
+import 'package:front/services/apiServices.dart';
+import 'package:front/models/user.dart';
 
-class Body extends StatelessWidget {
-  const Body({super.key});
+class Body extends StatefulWidget {
+  const Body({Key? key}) : super(key: key);
+
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  late TextEditingController nameController;
+  late TextEditingController surnameController;
+  late TextEditingController cinController;
+  late TextEditingController idController;
+  late TextEditingController emailController;
+
+  final ApiService apiService = ApiService();
+  User? currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    nameController = TextEditingController();
+    surnameController = TextEditingController();
+    cinController = TextEditingController();
+    idController = TextEditingController();
+    emailController = TextEditingController();
+    loadUserProfile();
+  }
+
+  void loadUserProfile() async {
+    currentUser = await apiService.getProfile();
+    if (currentUser != null) {
+      setState(() {
+        nameController.text = currentUser!.nom ?? '';
+        surnameController.text = currentUser!.prenom ?? '';
+        cinController.text = currentUser!.cin.toString();
+        idController.text = currentUser!.identifiant ?? '';
+        emailController.text = currentUser!.email ?? '';
+      });
+    }
+  }
+
+  void updateUserProfile() async {
+  int? cinAsInt = int.tryParse(cinController.text); // Tente de convertir en int, retourne null si échoué
+  if (cinAsInt == null) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Invalid CIN. Please enter a valid number.")),
+    );
+    return; // Arrête la fonction si le CIN n'est pas valide
+  }
+
+  User updatedUser = User(
+    nom: nameController.text,
+    prenom: surnameController.text,
+    cin: cinAsInt, // Utilisez cinAsInt si le backend attend un entier
+    identifiant: idController.text,
+    email: emailController.text,
+  );
+
+  bool result = await apiService.updateProfile(updatedUser);
+  if (result) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Profile updated successfully")));
+    loadUserProfile(); // Refresh profile data
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Failed to update profile")));
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -17,50 +84,22 @@ class Body extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
             ),
             SizedBox(height: size.height * 0.03),
-            const ProfileTextField(
-              labelText: "Nom",
-              hintText: "Your Name",
-              icon: Icons.person,
-            ),
-            const ProfileTextField(
-              labelText: "Prénom",
-              hintText: "Your Surname",
-              icon: Icons.person_outline,
-            ),
-            const ProfileTextField(
-              labelText: "CIN",
-              hintText: "Your CIN",
-              icon: Icons.badge,
-            ),
-            const ProfileTextField(
-              labelText: "Identifiant",
-              hintText: "Your ID",
-              icon: Icons.credit_card,
-            ),
-            const ProfileTextField(
-              labelText: "Email",
-              hintText: "Your Email",
-              icon: Icons.email,
-            ),
-            const ProfileTextField(
-              labelText: "Mot de Passe",
-              hintText: "Your Password",
-              icon: Icons.lock,
-              isPassword: true,
-            ),
+            ProfileTextField(controller: nameController, labelText: "Nom", hintText: "Your Name", icon: Icons.person),
+            ProfileTextField(controller: surnameController, labelText: "Prénom", hintText: "Your Surname", icon: Icons.person_outline),
+            ProfileTextField(controller: cinController, labelText: "CIN", hintText: "Your CIN", icon: Icons.badge),
+            ProfileTextField(controller: idController, labelText: "Identifiant", hintText: "Your ID", icon: Icons.credit_card),
+            ProfileTextField(controller: emailController, labelText: "Email", hintText: "Your Email", icon: Icons.email),
             SizedBox(height: size.height * 0.05),
             ElevatedButton(
-              onPressed: () {
-                // Logic for saving the updated profile information
-              },
+              onPressed: updateUserProfile,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.purple,
                 padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
               ),
-              child: Text(
+              child: const Text(
                 "Save",
                 style: TextStyle(
-                  color: Colors.white, // Texte en blanc
+                  color: Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
@@ -71,6 +110,16 @@ class Body extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    surnameController.dispose();
+    cinController.dispose();
+    idController.dispose();
+    emailController.dispose();
+    super.dispose();
+  }
 }
 
 class ProfileTextField extends StatelessWidget {
@@ -78,20 +127,23 @@ class ProfileTextField extends StatelessWidget {
   final String hintText;
   final IconData icon;
   final bool isPassword;
+  final TextEditingController controller;
 
   const ProfileTextField({
-    super.key,
+    Key? key,
     required this.labelText,
     required this.hintText,
     required this.icon,
     this.isPassword = false,
-  });
+    required this.controller,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextField(
+        controller: controller,
         obscureText: isPassword,
         decoration: InputDecoration(
           labelText: labelText,

@@ -147,31 +147,34 @@ class ApiService {
   }
 
   // Update user profile
-  Future<bool> updateProfile(User user) async {
-    try {
-      String? token = await getToken();
-      if (token == null) {
-        print("Token not found");
-        return false;
-      }
-      Map<String, dynamic> userData = user.toJson();
-      Response response = await _dio.put(
-        '$baseUrl/user/profile',
-        data: userData,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
-      if (response.statusCode == 200) {
-        print('User profile updated successfully');
-        return true;
-      } else {
-        print('Failed to update user profile: ${response.statusCode}');
-        return false;
-      }
-    } catch (e) {
-      print('Error occurred: $e');
+  
+Future<bool> updateProfile(User user) async {
+  try {
+    String? token = await getToken();
+    if (token == null) {
+      print("Token not found");
       return false;
     }
+    Map<String, dynamic> userData = user.toJson();
+    Response response = await _dio.put(
+      '$baseUrl/user/profile',
+      data: userData,
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
+    if (response.statusCode == 200) {
+      print('User profile updated successfully');
+      return true;
+    } else {
+      print('Failed to update user profile: ${response.statusCode}');
+      print('Error details: ${response.data}');  // Ajouté pour plus de détails sur l'erreur
+      return false;
+    }
+  } catch (e) {
+    print('Error occurred: $e');
+    return false;
   }
+}
+
 
   /*
  // Forgot Password
