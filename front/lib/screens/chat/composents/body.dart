@@ -12,11 +12,11 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
  
 
-  void _onItemTapped(int index) {
+  void onTap(int index) {
     if( index== 0){
             Navigator.pushNamed(context, '/home');
 
@@ -68,7 +68,7 @@ class _BodyState extends State<Body> {
             ],
             currentIndex: _selectedIndex,
             selectedItemColor: Colors.purple,
-            onTap: _onItemTapped,
+            onTap: onTap,
           ),
         ],
       ),

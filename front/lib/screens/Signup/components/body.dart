@@ -19,6 +19,7 @@ class _BodyState extends State<Body> {
   TextEditingController prenomController = TextEditingController();
   TextEditingController cinController = TextEditingController();
   TextEditingController identifiantController = TextEditingController();
+  TextEditingController paymentReceiptController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -75,6 +76,14 @@ class _BodyState extends State<Body> {
               },
             ),
             RoundedInputField(
+              hintText: "Reçu Paiement",
+              onChanged: (value) {
+                setState(() {
+                  paymentReceiptController.text = value;
+                });
+              },
+            ),
+            RoundedInputField(
               hintText: "Email",
               onChanged: (value) {
                 setState(() {
@@ -101,6 +110,7 @@ class _BodyState extends State<Body> {
                   prenomController.text,
                   int.parse(cinController.text),
                   identifiantController.text,
+                  paymentReceiptController.text,
                 );
 
                 if (success) {
