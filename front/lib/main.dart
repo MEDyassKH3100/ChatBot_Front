@@ -31,10 +31,10 @@ class MyApp extends StatelessWidget {
         '/signup': (context) => const SignupScreen(),
         '/signupSuccess': (context) => SignupSuccessScreen(),
         '/emailVerificationSuccess': (context) => EmailVerificationSuccess(),
-        '/home': (context) => HomeScreen(),
-        '/ChatEsprit': (context) => ChatScreen(),
-        '/profile': (context) => ProfileScreen(),
-        '/attestation': (context) => AttestationHomeScreen(),
+        '/home': (context) => const HomeScreen(),
+        '/ChatEsprit': (context) => const ChatScreen(),
+        '/profile': (context) => const ProfileScreen(),
+        '/attestation': (context) => const AttestationHomeScreen(),
       },
     );
   }

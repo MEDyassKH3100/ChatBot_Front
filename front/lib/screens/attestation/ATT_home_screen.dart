@@ -10,7 +10,7 @@ class AttestationHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Gestion des Attestations"),
+        title: const Text("Gestion des Attestations"),
         backgroundColor: Colors.purple,
         actions: <Widget>[
           PopupMenuButton<String>(
@@ -84,7 +84,7 @@ class AttestationHomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Background(
+      body: const Background(
         child: AttestationHomeBody(),
       ),
     );

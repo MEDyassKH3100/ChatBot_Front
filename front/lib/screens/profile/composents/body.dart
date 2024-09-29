@@ -4,7 +4,7 @@ import 'package:front/services/apiServices.dart';
 import 'package:front/models/user.dart';
 
 class Body extends StatefulWidget {
-  const Body({Key? key}) : super(key: key);
+  const Body({super.key});
 
   @override
   _BodyState createState() => _BodyState();
@@ -48,7 +48,7 @@ class _BodyState extends State<Body> {
   int? cinAsInt = int.tryParse(cinController.text); // Tente de convertir en int, retourne null si échoué
   if (cinAsInt == null) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Invalid CIN. Please enter a valid number.")),
+      const SnackBar(content: Text("Invalid CIN. Please enter a valid number.")),
     );
     return; // Arrête la fonction si le CIN n'est pas valide
   }
@@ -63,10 +63,10 @@ class _BodyState extends State<Body> {
 
   bool result = await apiService.updateProfile(updatedUser);
   if (result) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Profile updated successfully")));
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Profile updated successfully")));
     loadUserProfile(); // Refresh profile data
   } else {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Failed to update profile")));
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Failed to update profile")));
   }
 }
 
@@ -130,13 +130,13 @@ class ProfileTextField extends StatelessWidget {
   final TextEditingController controller;
 
   const ProfileTextField({
-    Key? key,
+    super.key,
     required this.labelText,
     required this.hintText,
     required this.icon,
     this.isPassword = false,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

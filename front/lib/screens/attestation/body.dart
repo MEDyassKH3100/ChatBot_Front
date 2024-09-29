@@ -16,7 +16,7 @@ class AttestationHomeBody extends StatelessWidget {
               Navigator.pushNamed(context, '/demandeAttestation');
             },
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           AttestationButton(
             text: "Réclamer",
             icon: Icons.search,
@@ -36,11 +36,11 @@ class AttestationButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   const AttestationButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.icon,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +50,8 @@ class AttestationButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white, backgroundColor: Colors.purple,
-        textStyle: TextStyle(fontSize: 16),
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+        textStyle: const TextStyle(fontSize: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
       ),
     );
   }

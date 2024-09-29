@@ -177,34 +177,5 @@ class ApiService {
     }
   }
 
-  /*
- // Forgot Password
-  Future<void> forgotPassword(String email) async {
-    try {
-      Response response =
-          await _dio.post('$baseUrl/user/forgotpassword', data: {
-        "email": email,
-      });
-      if (response.statusCode == 200) {
-        print("Email envoyé pour la réinitialisation du mot de passe");
-      }
-    } catch (e) {
-      print("Erreur lors de l'envoi de l'email de réinitialisation: $e");
-    }
-  }
-
-  // Reset Password
-  Future<void> resetPassword(String newPassword, String token) async {
-    try {
-      Response response =
-          await _dio.post('$baseUrl/user/resetpassword/$token', data: {
-        "mdp": newPassword,
-      });
-      if (response.statusCode == 200) {
-        print("Mot de passe réinitialisé avec succès");
-      }
-    } catch (e) {
-      print("Erreur lors de la réinitialisation du mot de passe: $e");
-    }
-  }*/
+ 
 }

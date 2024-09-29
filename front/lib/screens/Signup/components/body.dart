@@ -118,7 +118,7 @@ class _BodyState extends State<Body> {
                   Navigator.pushNamed(context, '/signupSuccess');
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Inscription échouée.')),
+                    const SnackBar(content: Text('Inscription échouée.')),
                   );
                 }
               },

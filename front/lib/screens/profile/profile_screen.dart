@@ -85,7 +85,7 @@ class ProfileScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Body(),
+      body: const Body(),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

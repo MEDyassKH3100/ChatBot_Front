@@ -45,20 +45,20 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.id;
-    data['nom'] = this.nom;
-    data['prenom'] = this.prenom;
-    data['cin'] = this.cin;
-    data['identifiant'] = this.identifiant;
-    data['email'] = this.email;
-    data['mdp'] = this.mdp;
-    data['paymentReceipt'] = this.paymentReceipt;
-    data['role'] = this.role;
-    data['isBanned'] = this.isBanned;
-    data['isVerified'] = this.isVerified;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = id;
+    data['nom'] = nom;
+    data['prenom'] = prenom;
+    data['cin'] = cin;
+    data['identifiant'] = identifiant;
+    data['email'] = email;
+    data['mdp'] = mdp;
+    data['paymentReceipt'] = paymentReceipt;
+    data['role'] = role;
+    data['isBanned'] = isBanned;
+    data['isVerified'] = isVerified;
     
-    data['jwtToken'] = this.jwtToken;
+    data['jwtToken'] = jwtToken;
     return data;
   }
 }
