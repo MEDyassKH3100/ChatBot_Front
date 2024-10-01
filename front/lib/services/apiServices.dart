@@ -177,5 +177,46 @@ class ApiService {
     }
   }
 
+  // Demander la réinitialisation du mot de passe (Forgot Password)
+Future<bool> forgotPassword(String email) async {
+  try {
+    Response response = await _dio.post(
+      '$baseUrl/user/forgotpassword',
+      data: {"email": email},
+    );
+    if (response.statusCode == 200) {
+      print('Forgot password request successful');
+      return true;
+    } else {
+      print('Failed to request forgot password: ${response.statusCode}');
+      return false;
+    }
+  } catch (e) {
+    print('Error occurred in forgot password: $e');
+    return false;
+  }
+}
+
+// Réinitialiser le mot de passe (Reset Password)
+Future<bool> resetPassword(String otp, String newPassword) async {
+  try {
+    Response response = await _dio.post(
+      '$baseUrl/user/resetpassword',
+      data: {"otp": otp, "mdp": newPassword},
+    );
+    if (response.statusCode == 200) {
+      print('Password reset successful');
+      return true;
+    } else {
+      print('Failed to reset password: ${response.statusCode}');
+      return false;
+    }
+  } catch (e) {
+    print('Error occurred in password reset: $e');
+    return false;
+  }
+}
+
+
  
 }

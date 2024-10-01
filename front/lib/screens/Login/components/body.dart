@@ -50,7 +50,7 @@ class _BodyState extends State<Body> {
                 setState(() {
                   emailController.text = value;
                 });
-              },
+              }, controller: emailController,
             ),
             RoundedPasswordLogin(
               onChanged: (value) {

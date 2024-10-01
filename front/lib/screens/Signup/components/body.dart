@@ -49,7 +49,7 @@ class _BodyState extends State<Body> {
                 setState(() {
                   nomController.text = value;
                 });
-              },
+              }, controller: nomController,
             ),
             RoundedInputField(
               hintText: "Prénom",
@@ -57,7 +57,7 @@ class _BodyState extends State<Body> {
                 setState(() {
                   prenomController.text = value;
                 });
-              },
+              }, controller: prenomController,
             ),
             RoundedInputField(
               hintText: "CIN",
@@ -65,7 +65,7 @@ class _BodyState extends State<Body> {
                 setState(() {
                   cinController.text = value;
                 });
-              },
+              }, controller: cinController,
             ),
             RoundedInputField(
               hintText: "Identifiant",
@@ -73,23 +73,16 @@ class _BodyState extends State<Body> {
                 setState(() {
                   identifiantController.text = value;
                 });
-              },
+              }, controller: identifiantController,
             ),
-            RoundedInputField(
-              hintText: "Reçu Paiement",
-              onChanged: (value) {
-                setState(() {
-                  paymentReceiptController.text = value;
-                });
-              },
-            ),
+            
             RoundedInputField(
               hintText: "Email",
               onChanged: (value) {
                 setState(() {
                   emailController.text = value;
                 });
-              },
+              }, controller: emailController,
             ),
             RoundedPasswordField(
               onChanged: (value) {
