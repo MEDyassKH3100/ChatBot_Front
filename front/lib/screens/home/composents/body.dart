@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'background.dart';
- 
+import 'package:front/screens/home/composents/background.dart';
+import 'package:front/screens/home/composents/homePageContent.dart'; // Assurez-vous que le chemin est correct
 
 class Body extends StatefulWidget {
   const Body({super.key});
@@ -12,17 +12,19 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Home Page',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-    Text('ChatEsprit',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-        Text('ChatEsprit',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+  // Modifiez cette liste pour inclure HomePageContent pour l'index 0
+   static const List<Widget> _widgetOptions = <Widget>[
+    HomePageContent(), // Afficher le contenu de la page d'accueil pour l'index 0
+    Text('ChatEsprit', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+    Text('Profile', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
   ];
 
-  void _onItemTapped(int index) {
-    if( index== 0){
+  
+
+   void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      if( index== 0){
             Navigator.pushNamed(context, '/home');
 
     }
@@ -38,18 +40,17 @@ class _BodyState extends State<Body> {
         _selectedIndex = index;
       });
     }
+      
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Background(
       child: Column(
         children: <Widget>[
           Expanded(
-            child: Center(
-              child: _widgetOptions.elementAt(_selectedIndex),
-            ),
+            child: _widgetOptions.elementAt(_selectedIndex),
           ),
           BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
@@ -74,6 +75,4 @@ class _BodyState extends State<Body> {
       ),
     );
   }
-
-  
 }
