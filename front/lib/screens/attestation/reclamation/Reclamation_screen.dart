@@ -10,7 +10,7 @@ class ReclamationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Gestion des Attestations"),
+        title: const Text("Réclamation"),
         backgroundColor: Colors.purple,
         actions: <Widget>[
           PopupMenuButton<String>(
