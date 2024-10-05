@@ -9,6 +9,7 @@ import 'package:front/screens/attestation/ATT_home_screen.dart';
 import 'package:front/screens/attestation/reclamation/Reclamation_screen.dart';
 import 'package:front/screens/attestation/stage/AT_stage_screen.dart';
 import 'package:front/screens/chat/chat_screen.dart';
+import 'package:front/screens/historique/historiqueScreen.dart';
 import 'package:front/screens/home/home_screen.dart';
 import 'package:front/constants.dart';
 import 'package:front/screens/profile/profile_screen.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         '/resetpassword': (context) => ResetPasswordScreen(),
         '/reclamation': (context) => const ReclamationScreen(),
         '/Attestation_stage': (context) => const ATStageScreen(),
+        '/historique': (context) => const Historiquescreen(),
       },
     );
   }

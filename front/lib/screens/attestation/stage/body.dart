@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:front/services/apiServices.dart';
 
 class ATStageBody extends StatefulWidget {
-  const ATStageBody({Key? key}) : super(key: key);
+  const ATStageBody({super.key});
 
   @override
   _ATStageBodyState createState() => _ATStageBodyState();
@@ -22,9 +22,9 @@ class _ATStageBodyState extends State<ATStageBody> {
     };
     bool success = await apiService.generateStageRequestPDF(requestData);
     if (success) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('PDF généré avec succès et téléchargé')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('PDF généré avec succès et téléchargé')));
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Échec de la génération du PDF')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Échec de la génération du PDF')));
     }
   }
 
@@ -50,10 +50,10 @@ class _ATStageBodyState extends State<ATStageBody> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _submitStageRequest,
-              child: const Text('Demander'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.purple,
               ),
+              child: const Text('Demander'),
             ),
           ],
         ),

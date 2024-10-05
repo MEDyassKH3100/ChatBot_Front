@@ -5,6 +5,8 @@ import 'package:front/components/rounded_button.dart';
 import 'package:front/components/rounded_input_field.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
+  const ResetPasswordScreen({super.key});
+
   @override
   _ResetPasswordScreenState createState() => _ResetPasswordScreenState();
 }
@@ -17,7 +19,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Réinitialiser le mot de passe")),
+      appBar: AppBar(title: const Text("Réinitialiser le mot de passe")),
       body: Background(  // Utilisation de Background pour un design cohérent
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -40,10 +42,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               press: () async {
                 bool result = await _apiService.resetPassword(_otpController.text, _passwordController.text);
                 if (result) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Réinitialisation du mot de passe réussie")));
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Réinitialisation du mot de passe réussie")));
                   Navigator.pushNamed(context, '/login');
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Échec de la réinitialisation du mot de passe")));
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Échec de la réinitialisation du mot de passe")));
                 }
               },
             ),

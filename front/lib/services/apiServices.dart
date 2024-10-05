@@ -107,7 +107,6 @@ class ApiService {
           "prenom": prenom,
           "cin": cin,
           "identifiant": identifiant,
-          
         },
       );
 
@@ -179,76 +178,69 @@ class ApiService {
   }
 
   // Demander la réinitialisation du mot de passe (Forgot Password)
-Future<bool> forgotPassword(String email) async {
-  try {
-    Response response = await _dio.post(
-      '$baseUrl/user/forgotpassword',
-      data: {"email": email},
-    );
-    if (response.statusCode == 200) {
-      print('Forgot password request successful');
-      return true;
-    } else {
-      print('Failed to request forgot password: ${response.statusCode}');
+  Future<bool> forgotPassword(String email) async {
+    try {
+      Response response = await _dio.post(
+        '$baseUrl/user/forgotpassword',
+        data: {"email": email},
+      );
+      if (response.statusCode == 200) {
+        print('Forgot password request successful');
+        return true;
+      } else {
+        print('Failed to request forgot password: ${response.statusCode}');
+        return false;
+      }
+    } catch (e) {
+      print('Error occurred in forgot password: $e');
       return false;
     }
-  } catch (e) {
-    print('Error occurred in forgot password: $e');
-    return false;
   }
-}
 
 // Réinitialiser le mot de passe (Reset Password)
-Future<bool> resetPassword(String otp, String newPassword) async {
-  try {
-    Response response = await _dio.post(
-      '$baseUrl/user/resetpassword',
-      data: {"otp": otp, "mdp": newPassword},
-    );
-    if (response.statusCode == 200) {
-      print('Password reset successful');
-      return true;
-    } else {
-      print('Failed to reset password: ${response.statusCode}');
+  Future<bool> resetPassword(String otp, String newPassword) async {
+    try {
+      Response response = await _dio.post(
+        '$baseUrl/user/resetpassword',
+        data: {"otp": otp, "mdp": newPassword},
+      );
+      if (response.statusCode == 200) {
+        print('Password reset successful');
+        return true;
+      } else {
+        print('Failed to reset password: ${response.statusCode}');
+        return false;
+      }
+    } catch (e) {
+      print('Error occurred in password reset: $e');
       return false;
     }
-  } catch (e) {
-    print('Error occurred in password reset: $e');
-    return false;
   }
-}
 
-Future<Attestation?> createAttestation(Attestation attestation) async {
-  try {
-    String? token = await getToken();
-    Response response = await _dio.post(
-      '$baseUrl/attestation',
-      data: attestation.toJson(),
-      options: Options(headers: {'Authorization': 'Bearer $token'})
-    );
-    if (response.statusCode == 200) {
-      return Attestation.fromJson(response.data);
-    } else {
-      print("Échec de la création de l'attestation : ${response.statusCode}");
+  Future<Attestation?> createAttestation(Attestation attestation) async {
+    try {
+      String? token = await getToken();
+      Response response = await _dio.post('$baseUrl/attestation',
+          data: attestation.toJson(),
+          options: Options(headers: {'Authorization': 'Bearer $token'}));
+      if (response.statusCode == 200) {
+        return Attestation.fromJson(response.data);
+      } else {
+        print("Échec de la création de l'attestation : ${response.statusCode}");
+        return null;
+      }
+    } catch (e) {
+      print('Erreur survenue : $e');
       return null;
     }
-  } catch (e) {
-    print('Erreur survenue : $e');
-    return null;
   }
-}
-
-
-
 
   // Méthode pour obtenir toutes les attestations
   Future<List<Attestation>?> getAllAttestations() async {
     try {
       String? token = await getToken();
-      Response response = await _dio.get(
-        '$baseUrl/attestation',
-        options: Options(headers: {'Authorization': 'Bearer $token'})
-      );
+      Response response = await _dio.get('$baseUrl/attestation',
+          options: Options(headers: {'Authorization': 'Bearer $token'}));
       if (response.statusCode == 200) {
         List<dynamic> data = response.data as List;
         return data.map((json) => Attestation.fromJson(json)).toList();
@@ -263,10 +255,8 @@ Future<Attestation?> createAttestation(Attestation attestation) async {
   Future<Attestation?> getAttestationById(String id) async {
     try {
       String? token = await getToken();
-      Response response = await _dio.get(
-        '$baseUrl/attestation/$id',
-        options: Options(headers: {'Authorization': 'Bearer $token'})
-      );
+      Response response = await _dio.get('$baseUrl/attestation/$id',
+          options: Options(headers: {'Authorization': 'Bearer $token'}));
       if (response.statusCode == 200) {
         return Attestation.fromJson(response.data);
       }
@@ -280,11 +270,9 @@ Future<Attestation?> createAttestation(Attestation attestation) async {
   Future<bool> updateAttestation(String id, Attestation attestation) async {
     try {
       String? token = await getToken();
-      Response response = await _dio.put(
-        '$baseUrl/attestation/$id',
-        data: attestation.toJson(),
-        options: Options(headers: {'Authorization': 'Bearer $token'})
-      );
+      Response response = await _dio.put('$baseUrl/attestation/$id',
+          data: attestation.toJson(),
+          options: Options(headers: {'Authorization': 'Bearer $token'}));
       return response.statusCode == 200;
     } catch (e) {
       print('Error occurred: $e');
@@ -296,10 +284,8 @@ Future<Attestation?> createAttestation(Attestation attestation) async {
   Future<bool> deleteAttestation(String id) async {
     try {
       String? token = await getToken();
-      Response response = await _dio.delete(
-        '$baseUrl/attestation/$id',
-        options: Options(headers: {'Authorization': 'Bearer $token'})
-      );
+      Response response = await _dio.delete('$baseUrl/attestation/$id',
+          options: Options(headers: {'Authorization': 'Bearer $token'}));
       return response.statusCode == 200;
     } catch (e) {
       print('Error occurred: $e');
@@ -312,9 +298,8 @@ Future<Attestation?> createAttestation(Attestation attestation) async {
     try {
       String? token = await getToken();
       Response response = await _dio.post(
-        '$baseUrl/attestation/generate-pdf/$id',
-        options: Options(headers: {'Authorization': 'Bearer $token'})
-      );
+          '$baseUrl/attestation/generate-pdf/$id',
+          options: Options(headers: {'Authorization': 'Bearer $token'}));
       return response.statusCode == 200;
     } catch (e) {
       print('Error occurred: $e');
@@ -322,7 +307,7 @@ Future<Attestation?> createAttestation(Attestation attestation) async {
     return false;
   }
 
-    // Méthode pour générer un PDF de demande de stage
+  // Méthode pour générer un PDF de demande de stage
   Future<bool> generateStageRequestPDF(Map<String, dynamic> requestData) async {
     try {
       String? token = await getToken();
@@ -331,10 +316,9 @@ Future<Attestation?> createAttestation(Attestation attestation) async {
         return false;
       }
       Response response = await _dio.post(
-        '$baseUrl/attestation/generate-stage-request-pdf',
-        data: requestData,
-        options: Options(headers: {'Authorization': 'Bearer $token'})
-      );
+          '$baseUrl/attestation/generate-stage-request-pdf',
+          data: requestData,
+          options: Options(headers: {'Authorization': 'Bearer $token'}));
       if (response.statusCode == 200) {
         print('PDF generation successful');
         return true;
@@ -347,5 +331,32 @@ Future<Attestation?> createAttestation(Attestation attestation) async {
       return false;
     }
   }
-} 
 
+// Cette méthode récupère les attestations générées par l'utilisateur connecté
+  Future<List<Attestation>?> getUserPDFs() async {
+    try {
+      String? token =
+          await getToken(); // S'assurer que le token est récupéré correctement
+      if (token == null) {
+        print("Token not found");
+        return null;
+      }
+      Response response = await _dio.get(
+        '$baseUrl/attestation/my-pdfs', // Assurez-vous que cette URL correspond à celle configurée dans le backend
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> data = response.data as List;
+        return data
+            .map((json) => Attestation.fromJson(json))
+            .toList(); // Convertir chaque objet JSON en attestation
+      } else {
+        print('Failed to fetch attestations: ${response.statusCode}');
+        return null;
+      }
+    } catch (e) {
+      print('Error occurred in fetching attestations: $e');
+      return null;
+    }
+  }
+}

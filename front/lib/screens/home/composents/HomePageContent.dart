@@ -42,7 +42,7 @@ Widget build(BuildContext context) {
             ],
           ),
         ),
-        Text(
+        const Text(
           "Bienvenue sur l'application officielle de l'ESPRIT",
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 16),
@@ -60,7 +60,7 @@ Widget build(BuildContext context) {
                       children: [
                         Image.asset(universityImages[index]['image'], fit: BoxFit.cover),
                         Text(universityImages[index]['description'],
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
                       ],

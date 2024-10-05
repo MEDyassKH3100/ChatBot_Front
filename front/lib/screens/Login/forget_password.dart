@@ -5,6 +5,8 @@ import 'package:front/components/rounded_button.dart';
 import 'package:front/components/rounded_input_field.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({super.key});
+
   @override
   _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
 }
@@ -16,7 +18,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Mot de passe oublié")),
+      appBar: AppBar(title: const Text("Mot de passe oublié")),
       body: Background(  // Utilisation de Background pour un design cohérent
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -32,10 +34,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               press: () async {
                 bool result = await _apiService.forgotPassword(_emailController.text);
                 if (result) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Veuillez vérifier votre email pour l'OTP")));
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Veuillez vérifier votre email pour l'OTP")));
                   Navigator.pushNamed(context, '/resetpassword');
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Échec de l'envoi de l'OTP")));
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Échec de l'envoi de l'OTP")));
                 }
               },
             ),

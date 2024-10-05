@@ -3,7 +3,7 @@ import 'package:front/models/Attestation.dart';
 import 'package:front/services/apiServices.dart';
 
 class ReclamationBody extends StatefulWidget {
-  const ReclamationBody({Key? key}) : super(key: key);
+  const ReclamationBody({super.key});
 
   @override
   _ReclamationBodyState createState() => _ReclamationBodyState();
@@ -26,9 +26,9 @@ class _ReclamationBodyState extends State<ReclamationBody> {
   );
   var result = await apiService.createAttestation(newAttestation);
   if (result != null) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Réclamation créée avec succès')));
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Réclamation créée avec succès')));
   } else {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Échec de la création de la réclamation')));
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Échec de la création de la réclamation')));
   }
 }
 
@@ -37,33 +37,33 @@ class _ReclamationBodyState extends State<ReclamationBody> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
             TextField(
               controller: fullNameController,
-              decoration: InputDecoration(labelText: 'Nom Complet'),
+              decoration: const InputDecoration(labelText: 'Nom Complet'),
             ),
             TextField(
               controller: courseController,
-              decoration: InputDecoration(labelText: 'Cours'),
+              decoration: const InputDecoration(labelText: 'Cours'),
             ),
             TextField(
               controller: yearController,
-              decoration: InputDecoration(labelText: 'Année Académique'),
+              decoration: const InputDecoration(labelText: 'Année Académique'),
             ),
             TextField(
               controller: detailsController,
-              decoration: InputDecoration(labelText: 'Détails Supplémentaires'),
+              decoration: const InputDecoration(labelText: 'Détails Supplémentaires'),
               maxLines: 3,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _submitReclamation,
-              child: Text('Soumettre'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.purple,
               ),
+              child: Text('Soumettre'),
             ),
           ],
         ),
