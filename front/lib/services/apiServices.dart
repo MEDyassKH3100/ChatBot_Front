@@ -7,7 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ApiService {
   final Dio _dio = Dio();
-  final String baseUrl = 'http://172.16.1.105:3000';
+  final String baseUrl = 'http://192.168.1.102:3000';
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
   Future<String?> getToken() async {
