@@ -8,6 +8,88 @@ class AdminBody extends StatefulWidget {
 
 class _AdminBodyState extends State<AdminBody> {
   AdminServices adminServices = AdminServices();
+  int totalClients = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    loadTotalClients();
+  }
+
+  void loadTotalClients() async {
+    var result = await adminServices.getTotalClients();
+    if (result != null && result.containsKey('totalClients')) {
+      setState(() {
+        totalClients = int.tryParse(result['totalClients'].toString()) ?? 0;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            _buildStatCard('Total Clients', totalClients.toString(), Colors.blue),
+            // Add other stat cards
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatCard(String title, String count, MaterialColor color) {
+    return Card(
+      color: color,
+      child: Container(
+        padding: EdgeInsets.all(20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(title, style: TextStyle(color: Colors.white, fontSize: 20)),
+            Text(count, style: TextStyle(color: Colors.white, fontSize: 24)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+class AdminBody extends StatefulWidget {
+  @override
+  _AdminBodyState createState() => _AdminBodyState();
+}
+
+class _AdminBodyState extends State<AdminBody> {
+  AdminServices adminServices = AdminServices();
   int totalUsers = 0;  // Variable pour stocker le nombre total d'utilisateurs
   int totalClients = 0;
   int totalAdmins = 0;
@@ -112,3 +194,4 @@ class _AdminBodyState extends State<AdminBody> {
     );
   }
 }
+*/
