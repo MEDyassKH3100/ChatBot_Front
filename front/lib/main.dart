@@ -5,6 +5,7 @@ import 'package:front/screens/Login/reset_password.dart';
 import 'package:front/screens/Signup/email_verification_success.dart';
 import 'package:front/screens/Signup/signup_screen.dart';
 import 'package:front/screens/Signup/signup_success_screen.dart';
+import 'package:front/screens/admin/adminScreen.dart';
 import 'package:front/screens/attestation/ATT_home_screen.dart';
 import 'package:front/screens/attestation/reclamation/Reclamation_screen.dart';
 import 'package:front/screens/attestation/stage/AT_stage_screen.dart';
@@ -40,11 +41,12 @@ class MyApp extends StatelessWidget {
         '/ChatEsprit': (context) => const ChatScreen(),
         '/profile': (context) => const ProfileScreen(),
         '/attestation': (context) => const AttestationHomeScreen(),
-        '/forgotpassword': (context) => ForgotPasswordScreen(),
-        '/resetpassword': (context) => ResetPasswordScreen(),
+        '/forgotpassword': (context) => const ForgotPasswordScreen(),
+        '/resetpassword': (context) => const ResetPasswordScreen(),
         '/reclamation': (context) => const ReclamationScreen(),
         '/Attestation_stage': (context) => const ATStageScreen(),
         '/historique': (context) => const Historiquescreen(),
+        '/adminScreen' : (context) => const AdminScreen(),
       },
     );
   }

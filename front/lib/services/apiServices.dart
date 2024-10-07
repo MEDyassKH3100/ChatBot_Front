@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:front/models/Attestation.dart';
 import 'package:front/models/user.dart';
@@ -5,7 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ApiService {
   final Dio _dio = Dio();
-  final String baseUrl = 'http://192.168.1.201:3000';
+  final String baseUrl = 'http://172.16.1.105:3000';
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
   Future<String?> getToken() async {
@@ -46,7 +48,7 @@ class ApiService {
     }
   }
 
-  // Update a user on the server
+  // Update user 
   Future<bool> updateUser(String userId, User user) async {
     try {
       Map<String, dynamic> userData = user.toJson();
@@ -65,34 +67,36 @@ class ApiService {
     }
   }
 
-//login
-  Future<User?> login(String email, String password) async {
-    try {
-      Response response = await _dio.post(
-        '$baseUrl/user/login',
-        data: {
-          "email": email,
-          "mdp": password,
-        },
-      );
+// Login 
+Future<User?> login(String email, String password) async {
+  try {
+    Response response = await _dio.post(
+      '$baseUrl/user/login',
+      data: {
+        "email": email,
+        "mdp": password,
+      },
+    );
 
-      if (response.statusCode == 200) {
-        print("Login successful");
-        print(response.data);
-        // Stockez le token dans le stockage sécurisé
-        await _storage.write(key: "token", value: response.data['token']);
+    if (response.statusCode == 200) {
+      // Stockage du token dans le stockage sécurisé
+      await _storage.write(key: "token", value: response.data['token']);
 
-        return User.fromJson(response.data);
-        // Assuming response contains user data
-      } else {
-        print('Failed to login: ${response.statusCode}');
-        return null;
-      }
-    } catch (e) {
-      print('Error occurred: $e');
+      // Stockage des données utilisateur, y compris le rôle
+      await _storage.write(key: "user", value: json.encode(response.data['user']));
+      print("Login successful with role: ${response.data['user']['role']}");
+
+      return User.fromJson(response.data['user']);
+    } else {
+      print('Failed to login: ${response.statusCode}');
       return null;
     }
+  } catch (e) {
+    print('Error occurred: $e');
+    return null;
   }
+}
+
 
 //register
   Future<bool> register(String email, String password, String nom,

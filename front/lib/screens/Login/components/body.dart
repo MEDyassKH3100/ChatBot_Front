@@ -50,7 +50,8 @@ class _BodyState extends State<Body> {
                 setState(() {
                   emailController.text = value;
                 });
-              }, controller: emailController,
+              },
+              controller: emailController,
             ),
             RoundedPasswordLogin(
               onChanged: (value) {
@@ -64,23 +65,19 @@ class _BodyState extends State<Body> {
             RoundedButton(
               text: "LOGIN",
               press: () async {
-                print("____________________________________________________");
-                print(emailController.text);
-                print(passwordController.text);
-                print("____________________________________________________");
-
-                // Appel à l'API de connexion et attente du résultat
                 var user = await apiService.login(
                     emailController.text, passwordController.text);
-
-                // Si la connexion est réussie, navigation vers l'écran d'accueil
                 if (user != null) {
-                  print(
-                      "Connexion réussie, navigation vers l'écran d'accueil...");
-                  Navigator.pushNamed(context, '/home');
+                  print("Connexion réussie, rôle: ${user.role}");
+                  if (user.role == 'admin') {
+                    // Rediriger vers la page d'administration
+                    Navigator.pushReplacementNamed(context, '/adminScreen');
+                  } else {
+                    // Rediriger vers la page d'accueil utilisateur
+                    Navigator.pushReplacementNamed(context, '/home');
+                  }
                 } else {
                   print("Échec de la connexion");
-                  // Afficher un message d'erreur à l'utilisateur
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text(
