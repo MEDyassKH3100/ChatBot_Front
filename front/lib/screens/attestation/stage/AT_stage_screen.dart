@@ -10,8 +10,11 @@ class ATStageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Attestations du stage"),
+        title: const Text("Attestations du stage",
+        style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
         backgroundColor: Colors.purple,
+        iconTheme: IconThemeData(color: Colors.white),
         actions: <Widget>[
           PopupMenuButton<String>(
             icon: const Icon(

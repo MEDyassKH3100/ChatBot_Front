@@ -77,41 +77,59 @@ class _AdminBodyState extends State<AdminBody> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            _buildStatCard('Total Clients', totalClients.toString(), Colors.blue),
-            _buildStatCard('Total Users', totalUsers.toString(), Colors.blue),
-            _buildStatCard('Total Admins', totalAdmins.toString(), Colors.blue),
-
-            _buildStatCard('Total Attestations', totalAttestations.toString(), Colors.blue),
-            _buildStatCard('Total Reclamations', totalReclamations.toString(), Colors.blue),
-            _buildStatCard('Total Attestations Stage', totalAttestationsStage.toString(), Colors.blue),
-            // Add other stat cards
-          ],
-        ),
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          _buildStatCard('Total Clients', totalClients.toString(), Colors.purple),
+          _buildStatCard('Total Users', totalUsers.toString(), Colors.purple),
+          _buildStatCard('Total Admins', totalAdmins.toString(), Colors.purple),
+          _buildStatCard('Total Attestations', totalAttestations.toString(), Colors.purple),
+          _buildStatCard('Total Reclamations', totalReclamations.toString(), Colors.purple),
+          _buildStatCard('Total Attestations Stage', totalAttestationsStage.toString(), Colors.purple),
+          // Bouton pour naviguer vers UserScreen
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/userScreen');
+            },
+            child: Text('Gérer les Utilisateurs'),
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white, backgroundColor: Colors.purple, // foreground
+            ),
+          ),
+          // Bouton pour naviguer vers AttestationScreen
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/attestationScreen');
+            },
+            child: Text('Gérer les Attestations'),
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white, backgroundColor: Colors.purple, // foreground
+            ),
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
 
-  Widget _buildStatCard(String title, String count, MaterialColor color) {
-    return Card(
-      color: color,
-      child: Container(
-        padding: EdgeInsets.all(20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(title, style: TextStyle(color: Colors.white, fontSize: 20)),
-            Text(count, style: TextStyle(color: Colors.white, fontSize: 24)),
-          ],
-        ),
+Widget _buildStatCard(String title, String count, MaterialColor color) {
+  return Card(
+    color: color,
+    child: Container(
+      padding: EdgeInsets.all(20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(title, style: TextStyle(color: Colors.white, fontSize: 20)),
+          Text(count, style: TextStyle(color: Colors.white, fontSize: 24)),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
+
 }
 
 

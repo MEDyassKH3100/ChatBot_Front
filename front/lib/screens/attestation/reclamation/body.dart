@@ -62,6 +62,7 @@ class _ReclamationBodyState extends State<ReclamationBody> {
               onPressed: _submitReclamation,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.purple,
+                foregroundColor: Colors.white,
               ),
               child: Text('Soumettre'),
             ),

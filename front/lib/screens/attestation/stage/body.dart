@@ -52,6 +52,7 @@ class _ATStageBodyState extends State<ATStageBody> {
               onPressed: _submitStageRequest,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.purple,
+                foregroundColor: Colors.white,
               ),
               child: const Text('Demander'),
             ),

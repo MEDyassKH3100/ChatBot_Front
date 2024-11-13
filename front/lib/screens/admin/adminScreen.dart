@@ -11,7 +11,7 @@ class AdminScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Gestion des Attestations"),
+        title: const Text("Espace Admin"),
         backgroundColor: Colors.purple,
         
       ),

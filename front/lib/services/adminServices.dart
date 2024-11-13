@@ -55,7 +55,7 @@ class AdminServices {
 
       if (response.statusCode == 200) {
         print("totalClients fetched successfully");
-        
+
         return {"totalClients": response.data['totalClients']};
       } else {
         print(
@@ -206,12 +206,9 @@ class AdminServices {
       if (response.statusCode == 200) {
         print("activities fetched successfully");
         // Assurez-vous que les données renvoyées contiennent la clé 'totalUsers'
-        return {
-          "activities": response.data['activities']
-        };
+        return {"activities": response.data['activities']};
       } else {
-        print(
-            "Failed to fetch activities: Status code ${response.statusCode}");
+        print("Failed to fetch activities: Status code ${response.statusCode}");
         return {"activities": "Error: ${response.statusCode}"};
       }
     } catch (e) {
@@ -237,12 +234,9 @@ class AdminServices {
       if (response.statusCode == 200) {
         print("users fetched successfully");
         // Assurez-vous que les données renvoyées contiennent la clé 'totalUsers'
-        return {
-          "users": response.data['users']
-        };
+        return {"users": response.data['users']};
       } else {
-        print(
-            "Failed to fetch users: Status code ${response.statusCode}");
+        print("Failed to fetch users: Status code ${response.statusCode}");
         return {"users": "Error: ${response.statusCode}"};
       }
     } catch (e) {
@@ -252,7 +246,7 @@ class AdminServices {
   }
 
   // filter attestations //
- Future<Map<String, dynamic>?> filterAttestations() async {
+  Future<Map<String, dynamic>?> filterAttestations() async {
     String? token = await getToken();
     if (token == null) {
       print("Token not found");
@@ -268,9 +262,7 @@ class AdminServices {
       if (response.statusCode == 200) {
         print("Attestations fetched successfully");
         // Assurez-vous que les données renvoyées contiennent la clé 'totalUsers'
-        return {
-          "Attestations": response.data['Attestations']
-        };
+        return {"Attestations": response.data['Attestations']};
       } else {
         print(
             "Failed to fetch Attestations: Status code ${response.statusCode}");
@@ -281,6 +273,7 @@ class AdminServices {
       return {"Attestations": "Exception: $e"};
     }
   }
+
   // ajouter admin
   Future<bool> addAdmin(Map<String, dynamic> adminData) async {
     String? token = await getToken();
@@ -307,6 +300,33 @@ class AdminServices {
     } catch (e) {
       print('Error occurred: $e');
       return false;
+    }
+  }
+
+// Bannir un utilisateur
+  Future<bool> banUser(String userId) async {
+    String? token = await getToken();
+    if (token == null) {
+      print("Token not found");
+      return false;
+    }
+
+    try {
+      Response response = await _dio.put(
+        '$baseUrl/user/ban/$userId',
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+
+      if (response.statusCode == 200) {
+        print("User banned successfully");
+        return true; // Renvoie true si l'utilisateur est banni avec succès
+      } else {
+        print("Failed to ban user: Status code ${response.statusCode}");
+        return false; // Renvoie false si l'opération échoue
+      }
+    } catch (e) {
+      print('Error occurred: $e');
+      return false; // Renvoie false en cas d'erreur
     }
   }
 }

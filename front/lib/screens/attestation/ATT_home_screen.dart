@@ -10,8 +10,11 @@ class AttestationHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Gestion des Attestations"),
+        title: const Text("Gestion des Attestations",
+        style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
         backgroundColor: Colors.purple,
+        iconTheme: IconThemeData(color: Colors.white),
         actions: <Widget>[
           PopupMenuButton<String>(
             icon: const Icon(

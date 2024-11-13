@@ -25,6 +25,8 @@ class Background extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
+          
+          
           Positioned(
             bottom: 0,
             right: 0,
@@ -35,6 +37,10 @@ class Background extends StatelessWidget {
             ),
           ),
           child,
+        
+
+        
+          
         ],
       ),
     );

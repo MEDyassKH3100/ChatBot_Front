@@ -44,31 +44,34 @@ class _BodyState extends State<Body> {
     }
   }
 
-  void updateUserProfile() async {
-  int? cinAsInt = int.tryParse(cinController.text); // Tente de convertir en int, retourne null si échoué
+ void updateUserProfile() async {
+  // Validation du CIN pour s'assurer qu'il est numérique
+  int? cinAsInt = int.tryParse(cinController.text);
   if (cinAsInt == null) {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Invalid CIN. Please enter a valid number.")),
+      const SnackBar(content: Text("CIN invalide. Veuillez entrer un nombre valide.")),
     );
-    return; // Arrête la fonction si le CIN n'est pas valide
+    return; // Arrête l'exécution si le CIN n'est pas valide
   }
 
   User updatedUser = User(
-    nom: nameController.text,
-    prenom: surnameController.text,
-    cin: cinAsInt, // Utilisez cinAsInt si le backend attend un entier
-    identifiant: idController.text,
-    email: emailController.text,
+    nom: nameController.text.trim(),  // Utilisez trim() pour supprimer les espaces inutiles
+    prenom: surnameController.text.trim(),
+    cin: cinAsInt,
+    identifiant: idController.text.trim(),
+    email: emailController.text.trim(),
   );
 
   bool result = await apiService.updateProfile(updatedUser);
   if (result) {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Profile updated successfully")));
-    loadUserProfile(); // Refresh profile data
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Profil mis à jour avec succès")));
+    loadUserProfile();  // Recharge les données du profil
   } else {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Failed to update profile")));
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Échec de la mise à jour du profil")));
   }
 }
+
+
 
 
   @override
