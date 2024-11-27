@@ -32,7 +32,7 @@ class _BodyState extends State<Body> {
           children: <Widget>[
             const Text(
               "LOGIN",
-              style: TextStyle(fontWeight: FontWeight.bold),
+             style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.purple),
             ),
             SizedBox(
               height: size.height * 0.03,
@@ -68,7 +68,7 @@ class _BodyState extends State<Body> {
                 var user = await apiService.login(
                     emailController.text, passwordController.text);
                 if (user != null) {
-                  print("Connexion réussie, rôle: ${user.role}");
+                  print("Connection successful, rôle: ${user.role}");
                   if (user.role == 'admin') {
                     // Rediriger vers la page d'administration
                     Navigator.pushReplacementNamed(context, '/adminScreen');
@@ -81,7 +81,7 @@ class _BodyState extends State<Body> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text(
-                          'Échec de la connexion. Veuillez vérifier votre email ou mot de passe.'),
+                          'Login failed. Please check your email or password.'),
                     ),
                   );
                 }
@@ -93,7 +93,7 @@ class _BodyState extends State<Body> {
             ),
 
             RoundedButton(
-              text: "Mot de passe oublié ?",
+              text: "Forgot your password?",
               color: kPrimaryLightColor,
               textColor: Colors.black,
               press: () {
