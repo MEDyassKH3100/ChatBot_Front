@@ -33,12 +33,12 @@ Ce frontend complète le backend (repo sœur : [ChatBot Backend](https://github.
 ChatBot_Front/
 ├── lib/
 │   ├── main.dart            # Point d'entrée de l'application
-│   ├── screens/             # Écrans principaux (ChatScreen, HomeScreen)
-│   ├── widgets/             # Composants réutilisables (MessageBubble, InputField)
-│   ├── models/              # Modèles de données (Message, Conversation)
-│   ├── services/            # API calls (HttpClient vers backend)
-│   ├── providers/           # Gestion d'état (si Provider/Riverpod)
-│   └── utils/               # Fonctions utilitaires (constants, themes)
+│   ├── screens/             # Écrans principaux 
+│   ├── widgets/             # Composants réutilisables 
+│   ├── models/              # Modèles de données 
+│   ├── services/            # API calls 
+│   ├── providers/           # Gestion d'état 
+│   └── utils/               # Fonctions utilitaires 
 ├── assets/                  # Images, icônes
 ├── pubspec.yaml             # Dépendances Flutter
 └── README.md
@@ -66,7 +66,7 @@ ChatBot_Front/
 
 3. Configurer l'URL du backend dans le code (ex : dans `services/api_service.dart`) :
    ```dart
-   const String BASE_URL = 'http://localhost:5000'; // Ou votre URL déployée
+   const String BASE_URL = 'http://localhost:3000'; // Ou votre URL déployée
    ```
 
 4. Lancer l'application :
